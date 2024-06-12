@@ -51,3 +51,47 @@ sudo docker run \
   --env GAME_PORT=15636 \
   --env QUERY_PORT=15637 \
   ${IMAGE_NAME}
+
+    # 생성 확인
+    ATTEMPTS=4
+    SLEEP_TIME=3
+    for (( i=1; i<=ATTEMPTS; i++ )); do
+        echo "Checking if container ${CONTAINER_NAME} created and started... Attempt $i"
+        if [ $(docker ps --format '{{.Names}}' | grep -w ${CONTAINER_NAME}) ]; then
+            echo "Container ${CONTAINER_NAME} created and started successfully."
+            exit 0
+        fi
+        sleep ${SLEEP_TIME}
+    done
+    echo "Failed to create and start container ${CONTAINER_NAME} after ${ATTEMPTS} attempts."
+    exit 1
+fi
+
+
+
+  #!/bin/bash
+
+# Docker 컨테이너 이름
+CONTAINER_NAME="enshrouded-server"
+
+docker stop ${CONTAINER_NAME}
+
+# 컨테이너가 실행 중인지 확인
+if [ $(docker ps --format '{{.Names}}' | grep -w ${CONTAINER_NAME}) ]; then
+    # 종료 확인
+    ATTEMPTS=5
+    SLEEP_TIME=3
+    for (( i=1; i<=ATTEMPTS; i++ )); do
+        echo "Checking if container ${CONTAINER_NAME} is still running... Attempt $i"
+        if [ $(docker ps --format '{{.Names}}' | grep -w ${CONTAINER_NAME}) ]; then
+            echo "Container ${CONTAINER_NAME} is still running..."
+            exit 0
+        fi
+        sleep ${SLEEP_TIME}
+    done
+      echo "Failed to stop container ${CONTAINER_NAME}."
+# OS 리부트
+else
+  echo 'Rebooting the system...'
+  sudo reboot
+fi
