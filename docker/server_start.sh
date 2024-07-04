@@ -1,27 +1,27 @@
 #!/bin/bash
 ###########################################
 ## Docker 컨테이너 이름
-CONTAINER_NAME = "your_container_name"
+CONTAINER_NAME="your_container_name"
 
 ## 이미지 이름 (필요한 경우 이미지 태그도 포함)
-IMAGE_NAME = "your_image_name:latest"
+IMAGE_NAME="your_image_name:latest"
 
 ## 마운트 타입
-MOUNT_TYPE = 'bind'
+MOUNT_TYPE='bind'
 #### bind : 바인드 타입
 
 ## 도커 바인드 마운트 볼륨 디렉토리
-DOCKER_DIRECTORY = 'your_directory'
+DOCKER_DIRECTORY='your_directory'
 #### 추가적으로 바인드 일지 케이스문 처리가 필요함
 
 ## 컨테이너 디렉토리
-CONTAINER_DIRECTORY = 'your_container_dicrectory'
+CONTAINER_DIRECTORY='your_container_dicrectory'
 
 ## 시도 횟수
-ATTEMPTS = 4
+ATTEMPTS=4
 
 ## 슬립타임
-SLEEP_TIME = 3
+SLEEP_TIME=3
 ###########################################
 
 ## 컨테이너가 이미 실행 중인지 확인
@@ -53,7 +53,7 @@ else
     sudo docker run \
         --detach \
         --name ${CONTAINER_NAME} \
-        --mount type = ${MOUNT_TYPE}, source=${DOCKER_DIRECTORY}, target=${CONTAINER_DIRECTORY} \
+        --mount type=${MOUNT_TYPE},source=${DOCKER_DIRECTORY},target=${CONTAINER_DIRECTORY} \
       ${IMAGE_NAME}
     ############################################
 
