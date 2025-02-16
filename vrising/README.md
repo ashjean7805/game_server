@@ -4,10 +4,46 @@
 ### 폴더 생성
 docker 폴더 밑에 vrising/data, vrising/server 폴더를 생성한다. 해당 폴더들은 컨테이너에 마운트하기 위한 폴더이기 때문에 미리 생성해둔다. 
 
-### 컨테이너 설정 프로세스 
+![test](./images/image01.png)
+### 컨테이너 설정 프로세스
 
-/mnt/vrising/persistentdata
-/mnt/vrising/server
+#### 이미지 다운로드 
+![test](./images/image02.png)
+
+레지스트리를 선택하여 이미지를 다운로드 한다. 여기선 제일 인기가 많은 trueosiris의 vrising 이미지를 선택했다. 컨테이너 매니저의 별표 수는 실제 도커 이미지의 수와 다르게 컨테이너 매니저 내의 인기 별표만 나타내는 것 같아 보인다. 실제 도커 허브를 들어가서 살펴보면 별의 개수가 상이한 것을 확인할 수 있다.
+
+![test](./images/image03.png)
+
+이미지를 다운로드 할 때는 latest 설정으로 진행한다. 이미지의 버전을 임의로 저장해두면 나중에 서버가 업데이트 됐을때 다시 설정해줘야하는 불상사가 발생할 수 있다.
+
+#### 컨테이너 띄우기 
+
+![test](./images/image04.png)
+
+레지스트리에서 다운로드가 완료되었으면 이미지로 넘어가서 컨테이너를 실행시킨다.
+
+![test](./images/image05.png)
+
+일반 설정은 컨테이너 이름만 임의로 정하고 진행한다. 이미지에선 스크린샷을 찍기 위해 재진행이라 -2로 찍혔다.
+
+![test](./images/image06.png)
+
+포트 설정은 기본적으로 9876과 9877을 오픈해준다. 브이라이징의 서버는 UDP를 사용하고 있다. 사전에 만들어둔 폴더들 또한 마운트해준다. 기본적으로 좌측의 도커의 폴더가, 컨테이너의 해당 폴더와 동일하다고 보면 된다.
+
+- /mnt/vrising/persistentdata
+- /mnt/vrising/server
+
+![test](./images/image07.png)
+
+- trueosiris가 만들어둔 환경변수는 
+- TZ : 타임존, 한글로 적혀있는 이 문서를 읽고있는 분들은 Asia/Seoul로 보통 작성하면 될 것이다.
+- SERVERNAME : 원하는 서버명을 작성하면 된다
+
+아래 네트워크는 bridge 와 host를 둘다 선택해도 되지만, 기본적으로 bridge를 가정하고 진행하였다. 
+
+![test](./images/image08.png)
+
+완료.
 
 ### Network 설정
 #### Static IP
